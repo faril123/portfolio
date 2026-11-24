@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
+import Loader from "@/components/Loader";
+import Navbar from "@/components/Navbar";
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -16,14 +19,16 @@ const satoshi = localFont({
 
 export const metadata: Metadata = {
   title: "Faril | Portfolio",
-  description: "Informatics student & mobile developer.",
+  description: "Web & mobile developer.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="id">
       <body className={`${jakarta.variable} ${inter.variable} ${satoshi.variable} font-sans antialiased`}>
-        {children}
+        <Loader />
+        <Navbar />
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );
