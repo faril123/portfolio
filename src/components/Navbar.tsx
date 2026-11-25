@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 const links = [
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
-  { href: "#skills", label: "Skills" },
-  { href: "#contact", label: "Contact" },
+    { href: "/#about", label: "About" },
+    { href: "/#projects", label: "Projects" },
+    { href: "/#experience", label: "Experience" },
+    { href: "/#skills", label: "Skills" },
+    { href: "/#contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -17,7 +17,6 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // muncul setelah loader selesai (~1.7 detik)
     gsap.fromTo(
       ref.current,
       { opacity: 0, y: -12 },
