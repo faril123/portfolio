@@ -1,3 +1,5 @@
+import Hero from "@/components/Hero";
+
 const sections = [
   { id: "about", title: "About", alt: false },
   { id: "projects", title: "Projects", alt: true },
@@ -9,16 +11,7 @@ const sections = [
 export default function Home() {
   return (
     <main>
-      <section id="home" className="flex min-h-screen items-center bg-bg px-6 pt-16">
-        <div className="mx-auto w-full max-w-6xl">
-          <h1 className="font-display text-[clamp(3rem,9vw,5.5rem)] font-bold leading-[1.05] text-ink">
-            Faril
-          </h1>
-          <p className="mt-4 max-w-xl font-body text-[17px] text-muted">
-            Informatics student & mobile developer.
-          </p>
-        </div>
-      </section>
+      <Hero />
 
       {sections.map((s) => (
         <section
