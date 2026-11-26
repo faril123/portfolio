@@ -4,15 +4,15 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { projects } from "@/data/projects";
 import ProjectCard from "./ProjectCard";
+import type { Project } from "@/data/projects";
 
 const MAX = 5;
 
-export default function Projects() {
-  const root = useRef<HTMLElement>(null);
+export default function Projects({ projects }: { projects: Project[] }) {
+  const root = useRef<HTMLElement>(null);   // <- tambahkan baris ini
   const list = useRef<HTMLDivElement>(null);
-  const shown = projects.slice(0, MAX);
+  const shown = projects.slice(0, MAX);  
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -64,8 +64,7 @@ export default function Projects() {
 
       <div
         ref={list}
-        className="no-scrollbar mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-6 md:px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))]"
-      >
+        className="no-scrollbar mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-6 md:px-[max(1.5rem,calc((100vw_-_72rem)/2_+_1.5rem))]"      >
         {shown.map((p) => (
           <ProjectCard key={p.slug} p={p} className="w-[85vw] shrink-0 snap-start sm:w-[420px]" />
         ))}

@@ -1,13 +1,14 @@
 export type Project = {
-    slug: string;
-    title: string;
-    description: string;
-    framework: string[];
-    database: string[];
-    testing: string[];
-    github: string;
-    image?: string; // path di /public, mis. "/projects/dodigi.png"
-  };
+  slug: string;
+  title: string;
+  description: string;
+  descriptionEn?: string; 
+  framework: string[];
+  database: string[];
+  testing: string[];
+  github: string;
+  image?: string;
+};
   
   export const projects: Project[] = [
     {

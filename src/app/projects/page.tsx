@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { projects } from "@/data/projects";
+import { getProjects } from "@/lib/notion";
 import ProjectCard from "@/components/ProjectCard";
 
 export const metadata = { title: "Projects | Faril" };
 
-export default function AllProjects() {
+export default async function AllProjects() {
+  const projects = await getProjects();
   return (
     <main className="min-h-screen bg-bg-alt px-6 pb-24 pt-28">
       <div className="mx-auto max-w-6xl">
