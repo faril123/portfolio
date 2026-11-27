@@ -5,6 +5,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Loader from "@/components/Loader";
 import Navbar from "@/components/Navbar";
+import { LangProvider } from "@/lib/i18n";
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -26,9 +27,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="id">
       <body className={`${jakarta.variable} ${inter.variable} ${satoshi.variable} font-sans antialiased`}>
-        <Loader />
-        <Navbar />
-        <SmoothScroll>{children}</SmoothScroll>
+        <LangProvider>
+          <Loader />
+          <Navbar />
+          <SmoothScroll>{children}</SmoothScroll>
+        </LangProvider>
       </body>
     </html>
   );

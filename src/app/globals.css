@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   1. PALET WARNA (sumber tunggal, sesuai PRD bagian 8.2)
+   ========================================================================== */
 :root {
   --bg: #ffffff;
   --bg-alt: #f8f8f8;
@@ -7,8 +10,16 @@
   --border: #eaeaea;
   --text: #171717;
   --text-muted: #777777;
+
+  /* Tinggi navbar saat belum scroll (h-16). Dipakai untuk offset anchor. */
+  --nav-h: 4rem;
 }
 
+/* ==========================================================================
+   2. DAFTARKAN KE TAILWIND
+   Hasilnya: bg-bg, bg-bg-alt, bg-card, border-line, text-ink, text-muted,
+   font-sans, font-display, font-body
+   ========================================================================== */
 @theme inline {
   --color-bg: var(--bg);
   --color-bg-alt: var(--bg-alt);
@@ -16,18 +27,93 @@
   --color-line: var(--border);
   --color-ink: var(--text);
   --color-muted: var(--text-muted);
+
   --font-sans: var(--font-jakarta);
   --font-display: var(--font-satoshi);
   --font-body: var(--font-inter);
 }
 
+/* ==========================================================================
+   3. GAYA DASAR
+   ========================================================================== */
+html {
+  /* Supaya judul section tidak tertutup navbar fixed saat klik menu */
+  scroll-padding-top: var(--nav-h);
+}
+
 body {
   background: var(--bg);
   color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-stopped { overflow: hidden; }
-.no-scrollbar { scrollbar-width: none; }
-.no-scrollbar::-webkit-scrollbar { display: none; }
+::selection {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* ==========================================================================
+   4. LENIS (wajib untuk smooth scroll)
+   ========================================================================== */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   5. UTILITAS
+   ========================================================================== */
+
+/* Sembunyikan scrollbar (list project horizontal), scroll tetap berfungsi */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Lebar card project: 1 di HP, 2 di tablet, 3 di desktop */
+.project-card-w {
+  width: 85vw;
+}
+@media (min-width: 640px) {
+  .project-card-w {
+    width: calc((100% - 1.5rem) / 2);
+  }
+}
+@media (min-width: 1024px) {
+  .project-card-w {
+    width: calc((100% - 3rem) / 3);
+  }
+}
+
+/* ==========================================================================
+   6. AKSESIBILITAS
+   ========================================================================== */
+
+/* Fokus keyboard yang jelas */
+:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Hormati pengguna yang mematikan animasi di sistemnya.
+   Catatan: ini hanya untuk CSS. Animasi GSAP dicek di komponennya. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

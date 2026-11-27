@@ -6,13 +6,17 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ProjectCard from "./ProjectCard";
 import type { Project } from "@/data/projects";
+import { useLang } from "@/lib/i18n";
+import { dict } from "@/data/dictionary";
 
 const MAX = 5;
 
 export default function Projects({ projects }: { projects: Project[] }) {
-  const root = useRef<HTMLElement>(null);   // <- tambahkan baris ini
+  const root = useRef<HTMLElement>(null);   
   const list = useRef<HTMLDivElement>(null);
   const shown = projects.slice(0, MAX);  
+  const { lang } = useLang();
+  const t = dict[lang].projects;
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -42,18 +46,18 @@ export default function Projects({ projects }: { projects: Project[] }) {
     <section ref={root} id="projects" className="scroll-mt-16 bg-bg-alt py-24">
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex items-end justify-between gap-4">
-          <h2 className="font-display text-[clamp(2.25rem,5vw,3rem)] font-bold text-ink">Projects</h2>
+          <h2 className="font-display text-[clamp(2.25rem,5vw,3rem)] font-bold text-ink">{dict[lang].sections.projects}</h2>
           <div className="hidden gap-2 md:flex">
             <button
               onClick={() => scroll(-1)}
-              aria-label="Sebelumnya"
+              aria-label={t.prev}
               className="h-10 w-10 rounded-full border border-line bg-card text-ink transition-colors hover:bg-bg"
             >
               ←
             </button>
             <button
               onClick={() => scroll(1)}
-              aria-label="Berikutnya"
+              aria-label={t.next}
               className="h-10 w-10 rounded-full border border-line bg-card text-ink transition-colors hover:bg-bg"
             >
               →
@@ -62,13 +66,13 @@ export default function Projects({ projects }: { projects: Project[] }) {
         </div>
       </div>
 
-      <div
-        ref={list}
-        className="no-scrollbar mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-6 md:px-[max(1.5rem,calc((100vw_-_72rem)/2_+_1.5rem))]"      >
+      <div className="mx-auto mt-10 max-w-6xl px-6">
+      <div ref={list} className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6">
         {shown.map((p) => (
-          <ProjectCard key={p.slug} p={p} className="w-[85vw] shrink-0 snap-start sm:w-[420px]" />
+          <ProjectCard key={p.slug} p={p} className="project-card-w shrink-0 snap-start" />
         ))}
       </div>
+    </div>
 
       {projects.length > MAX && (
         <div className="mx-auto mt-6 max-w-6xl px-6">
@@ -76,7 +80,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
             href="/projects"
             className="inline-block rounded-full border border-line bg-card px-6 py-3 font-sans text-[15px] font-medium text-ink transition-colors hover:bg-bg"
           >
-            See all ({projects.length})
+            {t.seeAll} ({projects.length})
           </Link>
         </div>
       )}

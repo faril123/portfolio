@@ -1,26 +1,9 @@
-import Link from "next/link";
 import { getProjects } from "@/lib/notion";
-import ProjectCard from "@/components/ProjectCard";
+import AllProjectsView from "@/components/AllProjectsView";
 
 export const metadata = { title: "Projects | Faril" };
 
 export default async function AllProjects() {
   const projects = await getProjects();
-  return (
-    <main className="min-h-screen bg-bg-alt px-6 pb-24 pt-28">
-      <div className="mx-auto max-w-6xl">
-        <Link href="/" className="font-sans text-[14px] text-muted hover:text-ink">
-          ← Back
-        </Link>
-        <h1 className="mt-4 font-display text-[clamp(2.25rem,5vw,3rem)] font-bold text-ink">
-          All Projects
-        </h1>
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p) => (
-            <ProjectCard key={p.slug} p={p} />
-          ))}
-        </div>
-      </div>
-    </main>
-  );
+  return <AllProjectsView projects={projects} />;
 }
